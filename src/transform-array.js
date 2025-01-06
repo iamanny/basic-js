@@ -13,9 +13,44 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function transform(arr) {
+  // Проверяем, является ли arr массивом
+  if (!Array.isArray(arr)) {
+    throw new Error("'arr' parameter must be an instance of the Array!");
+  }
+  
+  const result = [];
+  let i = 0;
+
+  while (i < arr.length) {
+    const current = arr[i];
+    
+    if (current === '--double-next') {
+      // Удваиваем следующий элемент
+      if (i + 1 < arr.length) {
+        result.push(arr[i + 1]);
+      }
+    } else if (current === '--double-prev') {
+      // Удваиваем предыдущий элемент
+      if (i - 1 >= 0 && arr[i - 2] !== '--discard-next') {
+        result.push(arr[i - 1]);
+      }
+    } else if (current === '--discard-next') {
+      // Пропускаем следующий элемент
+      i++;
+    } else if (current === '--discard-prev') {
+      // Пропускаем предыдущий элемент
+      if (result.length > 0) {
+        result.pop();
+      }
+    } else {
+      // Если элемент не является управляющим, просто добавляем его
+      result.push(current);
+    }
+    i++;
+  }
+
+  return result;
 }
 
 module.exports = {

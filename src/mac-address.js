@@ -7,17 +7,21 @@ const { NotImplementedError } = require('../extensions/index.js');
  * Your task is to check by given string inputString
  * whether it's a MAC-48 address or not.
  *
- * @param {Number} inputString
+ * @param {String} inputString
  * @return {Boolean}
  *
  * @example
  * For 00-1B-63-84-45-E6, the output should be true.
  *
  */
-function isMAC48Address(/* n */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function isMAC48Address(inputString) {
+  // Регулярное выражение для проверки формата MAC-48 адреса
+  const regex = /^([0-9A-F]{2}-){5}[0-9A-F]{2}$/;
+  
+  // Проверяем соответствие строке с регулярным выражением
+  return regex.test(inputString);
 }
+
 module.exports = {
   isMAC48Address
 };

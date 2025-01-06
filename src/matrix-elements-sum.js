@@ -16,9 +16,26 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  * The result should be 9
  */
-function getMatrixElementsSum(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function getMatrixElementsSum(matrix) {
+  let sum = 0;
+  let zeroColumns = new Set(); // Множество для отслеживания колонок, под которыми есть 0
+
+  // Проходим по каждой строке матрицы
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      // Если в колонке есть 0, пропускаем все элементы в этой колонке
+      if (matrix[i][j] === 0) {
+        zeroColumns.add(j);
+      }
+
+      // Если под данной колонкой нет 0, добавляем элемент в сумму
+      if (!zeroColumns.has(j)) {
+        sum += matrix[i][j];
+      }
+    }
+  }
+
+  return sum;
 }
 
 module.exports = {
